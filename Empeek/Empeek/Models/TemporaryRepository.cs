@@ -15,7 +15,6 @@ namespace Empeek.Models
 
         public string exceptionMessage = "";
         public bool exception = false;
-        public List<string> backForwardList = new List<string>();
         public List<string> dataDisk = new List<string>();
         public List<string> dataDir = new List<string>();
         public List<string> dataFile = new List<string>();
@@ -143,11 +142,6 @@ namespace Empeek.Models
             return dataDisk;
         }
 
-        // 
-        private void BackForwardSet(string path)
-        {
-            backForwardList.Add(path);
-        }
 
         private void ResetValues()
         {
