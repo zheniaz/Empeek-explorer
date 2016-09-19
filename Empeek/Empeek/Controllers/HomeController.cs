@@ -10,21 +10,21 @@ namespace Empeek.Controllers
 {
     public class HomeController : Controller
     {
-        TemporaryRepository Repository = TemporaryRepository.Current;
+        private static TemporaryRepository Repository = TemporaryRepository.Current;
+        private string backStr = Repository.dataCount.CurrentPath;
 
         public ViewResult Index(string path)
         {
-            if (Repository.dataCount.CurrentPath == null)
-                Repository.GetAllDirs("D:\\Music");
-            else Repository.GetAllDirs(path);
+            Repository.GetAllDirs(path);
 
-            if(Repository.dataDisk.Count == 0)
+            if (Repository.dataDisk.Count == 0)
                 ViewBag.DataDisk = Repository.GetAllDisks();
 
             ViewBag.ExceptionMessage = Repository.exceptionMessage;
             ViewBag.Exception = Repository.exception;
 
-            // back - forward set
+            if (Repository.dataCount.CurrentPath != null && Repository.dataCount.CurrentPath.Length >= 4)
+                ViewBag.Back = BackPath(Repository.dataCount.CurrentPath);
 
             ViewBag.DataDisk = Repository.dataDisk;
             ViewBag.DataDir = Repository.dataDir;
@@ -33,28 +33,12 @@ namespace Empeek.Controllers
             return View();
         }
 
-
-
-
-        /*
-        public ViewResult Index()
+        private string BackPath(string str)
         {
-            return View(Repository.GetAllDisks());
+            backStr = Repository.dataCount.CurrentPath.Remove(Repository.dataCount.CurrentPath.LastIndexOf('\\'));
+            if (backStr.Length == 2)
+                backStr = backStr + @"\";
+            return backStr;
         }
-
-        public ActionResult SeeFileContents(string path)
-        {
-            Repository.SeeDirContents(path);
-            ViewBag.DataDir = Repository.dataDir;
-            ViewBag.DataFile = Repository.dataFile;
-            return View("Index");
-        }
-
-        public ActionResult CountFiles()
-        {
-            ViewBag.Repository = Repository.dataCount;
-            return View("Index");
-        }
-    */
     }
 }

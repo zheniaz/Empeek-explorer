@@ -35,6 +35,12 @@
     <div class="panel-body">
         <table class="table table-striped table-condensed">
             <tbody>
+                @if (ViewBag.Back != null)
+                {
+                    <tr><td>@Html.ActionLink("back", "Index", new { path = ViewBag.Back }, null)</td></tr>
+                }
+                
+
                 @if (ViewBag.DataDir != null)
                 {
                     foreach (string item in ViewBag.DataDir)
@@ -50,7 +56,7 @@
 </div>
 
 <div class="section panel panel-primary">
-    <div class="panel-heading">Name of files with path</div>
+    <div class="panel-heading">Name of files</div>
     <div class="panel-body">
         <table class="table table-striped table-condensed">
             <tbody>
@@ -87,34 +93,4 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--    Html.Partial("HardDisks")
-
-    <div id="SeeFileContents" class="section panel panel-primary">
-        Html.Partial("SeeFileContents")
-    </div>
-
-    <div id="CountFiles" class="secion panel panel-primary">
-        Html.Partial("CountFiles")
-    </div>-->
 }
