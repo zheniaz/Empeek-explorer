@@ -1,0 +1,27 @@
+using Empeek_Get_Directories_And_Files.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+
+namespace Empeek_Get_Directories_And_Files.Controllers
+{
+    public class ValuesController : ApiController
+    {
+
+        private static SearchingFilesAndDirectories _searchingFilesAndDirectories = SearchingFilesAndDirectories.Current;
+
+        public FilesAndDirsEntity GetNewEntities()
+        {
+            return _searchingFilesAndDirectories.Set("");
+        }
+
+        // GET api/values
+        public FilesAndDirsEntity GetEmpeekEntities(string path)
+        {
+            return _searchingFilesAndDirectories.Set(path);
+        }
+    }
+}
